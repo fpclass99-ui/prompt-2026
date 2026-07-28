@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChatGPT Image 2.0 提示詞大全｜知識小馬報馬仔</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Noto+Sans+TC:wght@300;400;500;700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:        #FFFBEF;
+  --bg2:       #FFF6D0;
+  --surface:   #FFFFFF;
+  --surface2:  #FFF9E0;
+  --surface3:  #FFF3B8;
+  --border:    #E8D050;
+  --border-lt: #F0E898;
+  --accent:    #F0C000;
+  --accent-dk: #C49800;
+  --accent-lt: #FFF3C0;
+  --text:      #2A2010;
+  --text-2:    #6E5820;
+  --text-3:    #A89040;
+  --text-4:    #C8B868;
+  --shadow:    rgba(200,160,0,0.15);
+  --shadow-md: rgba(180,140,0,0.22);
+  --radius:    14px;
+  --radius-sm: 8px;
+  --trans:     0.22s cubic-bezier(.4,0,.2,1);
+  /* Category palette (warm, readable on light) */
+  --c1:#D96800; --c1bg:#FFF3E0; --c1bd:#FFD0A0;
+  --c2:#0070A8; --c2bg:#E8F4FD; --c2bd:#A0CCE8;
+  --c3:#2A9648; --c3bg:#EDF9F1; --c3bd:#90D4A8;
+  --c4:#7830C0; --c4bg:#F4EEFF; --c4bd:#C0A0E0;
+  --c5:#C03060; --c5bg:#FFF0F4; --c5bd:#F0A0B8;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Noto Sans TC',sans-serif;
+  font-weight:300;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── HEADER ────────────────────────────── */
+header{
+  position:relative;
+  background:linear-gradient(160deg,#FFF8D0 0%,#FFFAEE 55%,#FFF8DC 100%);
+  border-bottom:2px solid var(--border);
+  overflow:hidden;
+  padding:0;
+}
+/* Dot pattern */
+header::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background-image:radial-gradient(circle,#E8D048 1.2px,transparent 1.2px);
+  background-size:22px 22px;
+  opacity:0.25;
+  pointer-events:none;
+}
+/* Wave bottom decoration */
+header::after{
+  content:'';
+  position:absolute;
+  bottom:-2px;left:0;right:0;height:16px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 16'%3E%3Cpath d='M0 8 Q150 0 300 8 Q450 16 600 8 Q750 0 900 8 Q1050 16 1200 8 L1200 16 L0 16Z' fill='%23FFFBEF'/%3E%3C/svg%3E") center/cover no-repeat;
+  z-index:2;
+}
+
+.header-inner{
+  position:relative;
+  z-index:1;
+  max-width:860px;
+  margin:0 auto;
+  padding:40px 32px 48px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:16px;
+}
+
+/* Mascot */
+.mascot-wrap{
+  position:relative;
+  width:148px;
+  height:168px;
+  filter:drop-shadow(0 8px 18px rgba(180,130,0,0.22));
+  animation:mascot-float 3.6s ease-in-out infinite;
+}
+@keyframes mascot-float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-8px);}
+}
+
+.header-eyebrow{
+  font-family:'Lora',serif;
+  font-size:12px;
+  letter-spacing:0.22em;
+  color:var(--text-2);
+  text-transform:uppercase;
+  background:var(--accent-lt);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:5px 18px;
+}
+
+h1{
+  font-family:'Noto Serif TC',serif;
+  font-weight:900;
+  font-size:clamp(26px,5vw,48px);
+  line-height:1.18;
+  color:var(--text);
+}
+h1 em{
+  font-style:normal;
+  color:var(--accent-dk);
+  background:linear-gradient(135deg,#E8A800,#F5C800);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+
+.header-desc{
+  color:var(--text-2);
+  font-size:14px;
+  line-height:1.75;
+  max-width:440px;
+}
+
+.stats-row{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:center;
+}
+.stat-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  background:white;
+  border:1.5px solid var(--border);
+  border-radius:100px;
+  padding:6px 16px;
+  font-size:12px;
+  font-weight:500;
+  color:var(--text-2);
+  box-shadow:0 2px 8px var(--shadow);
+}
+.stat-chip strong{color:var(--accent-dk);}
+.stat-chip .dot{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--accent);
+  display:inline-block;
+}
+
+/* ── STICKY CONTROLS ───────────────────── */
+.controls{
+  position:sticky;top:0;z-index:100;
+  background:rgba(255,251,239,0.96);
+  backdrop-filter:blur(12px);
+  border-bottom:1.5px solid var(--border-lt);
+  padding:12px 28px;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+  box-shadow:0 2px 12px rgba(200,160,0,0.08);
+}
+
+/* mini mascot in controls bar */
+.ctrl-mascot{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
+}
+.ctrl-mascot svg{ width:34px;height:34px; filter:drop-shadow(0 1px 3px rgba(180,130,0,0.18)); }
+.ctrl-label{
+  font-family:'Noto Serif TC',serif;
+  font-weight:700;
+  font-size:13px;
+  color:var(--text-2);
+  white-space:nowrap;
+}
+
+.search-wrap{
+  position:relative;
+  flex:1;min-width:180px;max-width:320px;
+}
+.search-wrap svg{
+  position:absolute;left:12px;top:50%;transform:translateY(-50%);
+  color:var(--text-3);pointer-events:none;
+}
+#search{
+  width:100%;
+  background:white;
+  border:1.5px solid var(--border-lt);
+  border-radius:100px;
+  color:var(--text);
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:13.5px;
+  padding:9px 14px 9px 38px;
+  outline:none;
+  transition:border-color var(--trans),box-shadow var(--trans);
+}
+#search:focus{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(240,192,0,0.18);
+}
+#search::placeholder{color:var(--text-4);}
+
+.filter-tabs{display:flex;gap:6px;flex-wrap:wrap;}
+.f-btn{
+  background:white;
+  border:1.5px solid var(--border-lt);
+  border-radius:100px;
+  color:var(--text-2);
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:12px;
+  font-weight:500;
+  padding:6px 14px;
+  cursor:pointer;
+  transition:all var(--trans);
+  white-space:nowrap;
+}
+.f-btn:hover{border-color:var(--accent);color:var(--accent-dk);}
+.f-btn[data-cat="all"].active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700;}
+.f-btn[data-cat="1"].active{background:var(--c1);border-color:var(--c1);color:#fff;font-weight:700;}
+.f-btn[data-cat="2"].active{background:var(--c2);border-color:var(--c2);color:#fff;font-weight:700;}
+.f-btn[data-cat="3"].active{background:var(--c3);border-color:var(--c3);color:#fff;font-weight:700;}
+.f-btn[data-cat="4"].active{background:var(--c4);border-color:var(--c4);color:#fff;font-weight:700;}
+.f-btn[data-cat="5"].active{background:var(--c5);border-color:var(--c5);color:#fff;font-weight:700;}
+
+.count-badge{
+  margin-left:auto;
+  background:var(--accent-lt);
+  border:1px solid var(--border);
+  border-radius:100px;
+  padding:4px 12px;
+  font-size:11.5px;
+  font-weight:700;
+  color:var(--accent-dk);
+  white-space:nowrap;
+  flex-shrink:0;
+}
+
+/* ── GRID ──────────────────────────────── */
+.grid-wrap{
+  max-width:1380px;margin:0 auto;
+  padding:28px 28px 64px;
+}
+
+.cat-section{margin-bottom:44px;}
+
+.cat-header{
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:18px;
+  padding:14px 18px;
+  border-radius:var(--radius);
+  border-left:4px solid;
+}
+.cat-section-1 .cat-header{background:var(--c1bg);border-color:var(--c1);}
+.cat-section-2 .cat-header{background:var(--c2bg);border-color:var(--c2);}
+.cat-section-3 .cat-header{background:var(--c3bg);border-color:var(--c3);}
+.cat-section-4 .cat-header{background:var(--c4bg);border-color:var(--c4);}
+.cat-section-5 .cat-header{background:var(--c5bg);border-color:var(--c5);}
+
+.cat-icon{font-size:22px;line-height:1;}
+
+.cat-hd-text{flex:1;}
+.cat-hd-name{
+  font-family:'Noto Serif TC',serif;
+  font-size:16px;font-weight:700;
+  margin-bottom:2px;
+}
+.cat-section-1 .cat-hd-name{color:var(--c1);}
+.cat-section-2 .cat-hd-name{color:var(--c2);}
+.cat-section-3 .cat-hd-name{color:var(--c3);}
+.cat-section-4 .cat-hd-name{color:var(--c4);}
+.cat-section-5 .cat-hd-name{color:var(--c5);}
+
+.cat-hd-desc{font-size:11.5px;color:var(--text-2);opacity:0.8;}
+.cat-hd-count{
+  font-size:11px;font-weight:700;
+  background:white;
+  border-radius:100px;
+  padding:3px 10px;
+  opacity:0.85;
+}
+.cat-section-1 .cat-hd-count{color:var(--c1);border:1px solid var(--c1bd);}
+.cat-section-2 .cat-hd-count{color:var(--c2);border:1px solid var(--c2bd);}
+.cat-section-3 .cat-hd-count{color:var(--c3);border:1px solid var(--c3bd);}
+.cat-section-4 .cat-hd-count{color:var(--c4);border:1px solid var(--c4bd);}
+.cat-section-5 .cat-hd-count{color:var(--c5);border:1px solid var(--c5bd);}
+
+.cards-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(248px,1fr));
+  gap:14px;
+}
+
+/* ── CARD ──────────────────────────────── */
+.card{
+  background:var(--surface);
+  border:1.5px solid var(--border-lt);
+  border-radius:var(--radius);
+  overflow:hidden;
+  cursor:pointer;
+  transition:transform var(--trans),box-shadow var(--trans),border-color var(--trans);
+  display:flex;flex-direction:column;
+  animation:fadeUp 0.35s ease both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 12px 32px var(--shadow-md);
+  border-color:var(--border);
+}
+.cat-c1 .card:hover{border-color:var(--c1bd);box-shadow:0 12px 32px rgba(217,104,0,.15);}
+.cat-c2 .card:hover{border-color:var(--c2bd);box-shadow:0 12px 32px rgba(0,112,168,.12);}
+.cat-c3 .card:hover{border-color:var(--c3bd);box-shadow:0 12px 32px rgba(42,150,72,.12);}
+.cat-c4 .card:hover{border-color:var(--c4bd);box-shadow:0 12px 32px rgba(120,48,192,.12);}
+.cat-c5 .card:hover{border-color:var(--c5bd);box-shadow:0 12px 32px rgba(192,48,96,.12);}
+
+.card-img{
+  position:relative;
+  aspect-ratio:4/3;
+  overflow:hidden;
+  background:var(--surface3);
+}
+.card-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform 0.42s ease;
+}
+.card:hover .card-img img{transform:scale(1.06);}
+
+.cat-badge{
+  position:absolute;top:10px;left:10px;
+  border-radius:100px;
+  padding:3px 10px;
+  font-size:9.5px;font-weight:700;
+  backdrop-filter:blur(8px);
+  background:rgba(255,255,255,0.88);
+  border:1px solid;
+}
+.cat-c1 .cat-badge{color:var(--c1);border-color:var(--c1bd);}
+.cat-c2 .cat-badge{color:var(--c2);border-color:var(--c2bd);}
+.cat-c3 .cat-badge{color:var(--c3);border-color:var(--c3bd);}
+.cat-c4 .cat-badge{color:var(--c4);border-color:var(--c4bd);}
+.cat-c5 .cat-badge{color:var(--c5);border-color:var(--c5bd);}
+
+.expand-hint{
+  position:absolute;bottom:8px;right:8px;
+  background:rgba(255,255,255,0.88);
+  backdrop-filter:blur(6px);
+  border:1px solid var(--border-lt);
+  border-radius:6px;
+  padding:4px 6px;
+  opacity:0;transition:opacity var(--trans);
+  color:var(--text-2);
+  font-size:9px;font-weight:700;
+  letter-spacing:0.05em;
+}
+.card:hover .expand-hint{opacity:1;}
+
+.card-body{
+  padding:13px 15px 14px;
+  flex:1;display:flex;flex-direction:column;gap:7px;
+}
+.card-title{
+  font-family:'Noto Serif TC',serif;
+  font-size:14.5px;font-weight:700;
+  color:var(--text);line-height:1.4;
+}
+.card-prompt-preview{
+  font-size:11.5px;color:var(--text-2);
+  line-height:1.7;flex:1;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;
+}
+.card-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:4px;
+  padding-top:10px;
+  border-top:1px solid var(--border-lt);
+}
+.copy-btn{
+  display:flex;align-items:center;gap:5px;
+  background:var(--surface2);
+  border:1.5px solid var(--border-lt);
+  border-radius:100px;
+  color:var(--text-2);
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:10.5px;font-weight:500;
+  padding:5px 12px;
+  cursor:pointer;
+  transition:all var(--trans);
+}
+.copy-btn:hover{background:var(--accent-lt);border-color:var(--accent);color:var(--accent-dk);}
+.copy-btn.done{background:#e6f9ed;border-color:#60c870;color:#228840;}
+.card-num{font-size:10px;color:var(--text-4);}
+
+/* ── NO RESULTS ────────────────────────── */
+.no-results{
+  text-align:center;padding:80px 20px;
+  color:var(--text-3);
+}
+.no-results-icon{font-size:52px;margin-bottom:16px;}
+
+/* ── MODAL ─────────────────────────────── */
+.overlay{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(42,32,16,0.55);
+  backdrop-filter:blur(10px);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;pointer-events:none;
+  transition:opacity 0.25s;
+}
+.overlay.open{opacity:1;pointer-events:all;}
+
+.modal{
+  background:var(--surface);
+  border:2px solid var(--border);
+  border-radius:20px;
+  width:100%;max-width:720px;
+  max-height:92vh;overflow-y:auto;
+  transform:scale(0.94) translateY(14px);
+  transition:transform 0.28s cubic-bezier(.4,0,.2,1);
+  box-shadow:0 24px 60px rgba(160,120,0,0.22);
+}
+.overlay.open .modal{transform:scale(1) translateY(0);}
+
+.modal-img{
+  width:100%;max-height:360px;object-fit:cover;
+  display:block;border-radius:18px 18px 0 0;
+}
+.modal-body{padding:22px 26px 28px;}
+
+.modal-top{
+  display:flex;align-items:center;gap:10px;
+  margin-bottom:12px;
+}
+.modal-cat-pill{
+  border-radius:100px;
+  padding:4px 12px;
+  font-size:10.5px;font-weight:700;
+  letter-spacing:0.05em;
+  border:1.5px solid;
+}
+.modal-num{font-size:11px;color:var(--text-3);}
+
+.modal-title{
+  font-family:'Noto Serif TC',serif;
+  font-size:22px;font-weight:900;
+  margin-bottom:16px;
+  color:var(--text);
+}
+
+.prompt-label{
+  font-size:10.5px;font-weight:700;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  color:var(--text-3);
+  margin-bottom:8px;
+}
+.prompt-box{
+  background:var(--surface2);
+  border:1.5px solid var(--border-lt);
+  border-radius:var(--radius-sm);
+  padding:14px 16px;
+  font-size:12.5px;
+  color:var(--text-2);
+  line-height:1.8;
+  white-space:pre-wrap;
+  word-break:break-word;
+  max-height:300px;
+  overflow-y:auto;
+}
+.modal-actions{
+  display:flex;gap:10px;margin-top:14px;
+}
+.btn-copy-all{
+  flex:1;
+  background:var(--accent);
+  color:white;
+  border:none;
+  border-radius:var(--radius-sm);
+  padding:12px 20px;
+  font-family:'Noto Sans TC',sans-serif;
+  font-weight:700;font-size:14px;
+  cursor:pointer;
+  transition:all var(--trans);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  box-shadow:0 4px 12px rgba(240,192,0,0.3);
+}
+.btn-copy-all:hover{background:var(--accent-dk);box-shadow:0 6px 18px rgba(196,152,0,0.35);}
+.btn-copy-all.done{background:#48BB78;box-shadow:0 4px 12px rgba(72,187,120,0.3);}
+.btn-close-modal{
+  background:white;
+  color:var(--text-2);
+  border:1.5px solid var(--border-lt);
+  border-radius:var(--radius-sm);
+  padding:12px 18px;
+  font-family:'Noto Sans TC',sans-serif;
+  font-size:13.5px;
+  cursor:pointer;
+  transition:all var(--trans);
+}
+.btn-close-modal:hover{border-color:var(--border);color:var(--text);}
+
+/* scrollbar */
+::-webkit-scrollbar{width:5px;height:5px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px;}
+
+@media(max-width:600px){
+  header,   .grid-wrap{padding-left:14px;padding-right:14px;}
+  .controls{padding:10px 14px;}
+  .modal-body{padding:14px 16px 20px;}
+  .ctrl-label{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════
+     HEADER
+═══════════════════════════════════════ -->
+<header>
+  <div class="header-inner">
+
+    <!-- ★ 知識小馬（報馬仔）吉祥物 SVG ★ -->
+    <div class="mascot-wrap">
+      <svg viewBox="0 0 160 190" xmlns="http://www.w3.org/2000/svg" aria-label="知識小馬 報馬仔">
+        <!-- Ground shadow -->
+        <ellipse cx="80" cy="187" rx="44" ry="7" fill="#D4B020" opacity="0.22"/>
+
+        <!-- ── TAIL ── -->
+        <path d="M116 132 C138 118 144 96 132 76 C125 64 116 61 109 67"
+              fill="none" stroke="#D4942A" stroke-width="10" stroke-linecap="round"/>
+        <path d="M116 132 C140 122 148 94 134 74 C127 62 116 59 108 66"
+              fill="none" stroke="#EDBA50" stroke-width="6" stroke-linecap="round" opacity="0.5"/>
+        <path d="M120 130 C142 116 150 92 136 72"
+              fill="none" stroke="#FDD878" stroke-width="3" stroke-linecap="round" opacity="0.35"/>
+
+        <!-- ── BODY ── -->
+        <ellipse cx="80" cy="138" rx="46" ry="37" fill="#F7E89A" stroke="#E4D060" stroke-width="1.5"/>
+        <!-- belly highlight -->
+        <ellipse cx="80" cy="144" rx="28" ry="21" fill="#FFFDE0" opacity="0.65"/>
+
+        <!-- ── BACK LEG (right, partially hidden) ── -->
+        <rect x="100" y="163" width="14" height="22" rx="6" fill="#EDD070" stroke="#D8BE50" stroke-width="1"/>
+        <ellipse cx="107" cy="186" rx="9" ry="5" fill="#C08820" stroke="#A87018" stroke-width="0.8"/>
+
+        <!-- ── FRONT LEGS ── -->
+        <rect x="54" y="163" width="14" height="22" rx="6" fill="#F0D878" stroke="#D8C050" stroke-width="1"/>
+        <rect x="88" y="163" width="14" height="22" rx="6" fill="#F0D878" stroke="#D8C050" stroke-width="1"/>
+        <ellipse cx="61" cy="186" rx="9" ry="5" fill="#C08820" stroke="#A87018" stroke-width="0.8"/>
+        <ellipse cx="95" cy="186" rx="9" ry="5" fill="#C08820" stroke="#A87018" stroke-width="0.8"/>
+
+        <!-- ── SCROLL held by right hoof ── -->
+        <!-- scroll body -->
+        <rect x="96" y="153" width="30" height="20" rx="3" fill="#FFFDF5" stroke="#D4B840" stroke-width="1.5"/>
+        <!-- rollers -->
+        <ellipse cx="96" cy="163" rx="4.5" ry="11" fill="#ECC84A" stroke="#C4A028" stroke-width="1"/>
+        <ellipse cx="126" cy="163" rx="4.5" ry="11" fill="#ECC84A" stroke="#C4A028" stroke-width="1"/>
+        <!-- text lines on scroll -->
+        <line x1="104" y1="157" x2="120" y2="157" stroke="#C4A030" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="104" y1="163" x2="120" y2="163" stroke="#C4A030" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="104" y1="169" x2="116" y2="169" stroke="#C4A030" stroke-width="1.5" stroke-linecap="round"/>
+        <!-- small "報" text on scroll -->
+        <text x="112" y="160" text-anchor="middle" font-size="5.5" fill="#A87018" font-family="serif" font-weight="bold">AI</text>
+        <text x="112" y="167" text-anchor="middle" font-size="4.5" fill="#A87018" font-family="serif">報馬仔</text>
+
+        <!-- ── NECK ── -->
+        <path d="M61 112 Q58 97 64 86 Q70 75 80 74 Q90 73 94 84 Q98 95 98 112 Z"
+              fill="#F7E89A" stroke="#E4D060" stroke-width="1"/>
+
+        <!-- ── BOWTIE ── -->
+        <path d="M68 118 L80 113 L68 108 Z" fill="#FF8080"/>
+        <path d="M92 108 L80 113 L92 118 Z" fill="#FF8080"/>
+        <circle cx="80" cy="113" r="3.8" fill="#FF5050"/>
+
+        <!-- ── STAR BADGE on chest ── -->
+        <circle cx="80" cy="144" r="10" fill="#F5C800" stroke="#D4A800" stroke-width="1"/>
+        <polygon points="80,136 81.9,141.2 87.4,141.2 83.1,144.4 84.7,149.6 80,146.4 75.3,149.6 76.9,144.4 72.6,141.2 78.1,141.2"
+                 fill="#FFFADC" opacity="0.7"/>
+        <text x="80" y="147.5" text-anchor="middle" font-size="6.5" fill="#8B6010" font-family="serif" font-weight="bold">知</text>
+
+        <!-- ── HEAD ── -->
+        <circle cx="80" cy="68" r="35" fill="#F7E89A" stroke="#E4D060" stroke-width="1.5"/>
+        <!-- head highlight -->
+        <circle cx="73" cy="56" r="14" fill="white" opacity="0.18"/>
+
+        <!-- ── EARS ── -->
+        <!-- left ear -->
+        <ellipse cx="57" cy="39" rx="9" ry="13.5" fill="#F7E89A" stroke="#E4D060" stroke-width="1.2" transform="rotate(-20 57 39)"/>
+        <ellipse cx="57" cy="39" rx="5.5" ry="8.5" fill="#FFB8C0" transform="rotate(-20 57 39)"/>
+        <!-- right ear -->
+        <ellipse cx="103" cy="39" rx="9" ry="13.5" fill="#F7E89A" stroke="#E4D060" stroke-width="1.2" transform="rotate(20 103 39)"/>
+        <ellipse cx="103" cy="39" rx="5.5" ry="8.5" fill="#FFB8C0" transform="rotate(20 103 39)"/>
+
+        <!-- ── MANE ── -->
+        <path d="M51 62 C40 53 36 42 43 32 C49 24 57 27 61 36 C57 27 62 19 70 23 C66 14 75 13 80 22 C76 13 85 12 89 22 C86 14 95 15 97 26"
+              fill="#D4942A" stroke="#C07820" stroke-width="0.5"/>
+        <!-- mane highlight strands -->
+        <path d="M54 60 C45 52 42 43 48 34 C53 27 60 30 62 38" fill="#EDBA50" opacity="0.55"/>
+        <path d="M68 24 C64 16 73 14 78 23" fill="#EDBA50" opacity="0.4"/>
+
+        <!-- ── SNOUT / MUZZLE ── -->
+        <ellipse cx="80" cy="85" rx="18" ry="13" fill="#F2D07A" stroke="#DEBC50" stroke-width="1"/>
+        <!-- nostrils -->
+        <ellipse cx="73" cy="88" rx="3.8" ry="2.8" fill="#C08820" opacity="0.6"/>
+        <ellipse cx="87" cy="88" rx="3.8" ry="2.8" fill="#C08820" opacity="0.6"/>
+        <!-- smile -->
+        <path d="M73 93 Q80 99 87 93" fill="none" stroke="#C08820" stroke-width="2.2" stroke-linecap="round"/>
+
+        <!-- ── EYES ── -->
+        <!-- whites -->
+        <ellipse cx="66" cy="64" rx="10.5" ry="11.5" fill="white" stroke="#F0D878" stroke-width="0.5"/>
+        <ellipse cx="94" cy="64" rx="10.5" ry="11.5" fill="white" stroke="#F0D878" stroke-width="0.5"/>
+        <!-- pupils -->
+        <circle cx="66.5" cy="65" r="7.5" fill="#2D1800"/>
+        <circle cx="94.5" cy="65" r="7.5" fill="#2D1800"/>
+        <!-- iris -->
+        <circle cx="66.5" cy="65" r="5.5" fill="#5C3410"/>
+        <circle cx="94.5" cy="65" r="5.5" fill="#5C3410"/>
+        <!-- highlight large -->
+        <circle cx="69.5" cy="62" r="3" fill="white"/>
+        <circle cx="97.5" cy="62" r="3" fill="white"/>
+        <!-- highlight small -->
+        <circle cx="64.5" cy="68.5" r="1.3" fill="white" opacity="0.65"/>
+        <circle cx="92.5" cy="68.5" r="1.3" fill="white" opacity="0.65"/>
+
+        <!-- eyelashes -->
+        <path d="M58 58 Q62 54 66 58" fill="none" stroke="#2D1800" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M86 58 Q90 54 94 58" fill="none" stroke="#2D1800" stroke-width="1.6" stroke-linecap="round"/>
+
+        <!-- eyebrows (cheerful arch) -->
+        <path d="M59 55 Q66.5 50 74 56" fill="none" stroke="#8B5810" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M86 56 Q93.5 50 101 55" fill="none" stroke="#8B5810" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- ── GLASSES ── -->
+        <circle cx="66" cy="64" r="14" fill="none" stroke="#9B7218" stroke-width="2"/>
+        <circle cx="94" cy="64" r="14" fill="none" stroke="#9B7218" stroke-width="2"/>
+        <!-- bridge -->
+        <path d="M80 64 L80 64" stroke="#9B7218" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="79.5" y1="64" x2="80.5" y2="64" stroke="#9B7218" stroke-width="3" stroke-linecap="round"/>
+        <!-- temples -->
+        <line x1="43" y1="59" x2="52" y2="62" stroke="#9B7218" stroke-width="2" stroke-linecap="round"/>
+        <line x1="108" y1="62" x2="117" y2="59" stroke="#9B7218" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- lens glare -->
+        <path d="M57 56 Q60 53 64 55" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+        <path d="M85 56 Q88 53 92 55" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+
+        <!-- ── PRESS HAT (small cap on top of mane) ── -->
+        <!-- hat brim -->
+        <ellipse cx="88" cy="26" rx="14" ry="5" fill="#8B5810"/>
+        <!-- hat body -->
+        <rect x="78" y="10" width="20" height="17" rx="3" fill="#A87020"/>
+        <!-- press card in hat band -->
+        <rect x="82" y="22" width="12" height="7" rx="1.5" fill="#FFFDF0" stroke="#D4B030" stroke-width="0.8"/>
+        <text x="88" y="27.5" text-anchor="middle" font-size="4.5" fill="#8B5810" font-weight="bold" font-family="serif">PRESS</text>
+      </svg>
+    </div>
+
+    <div class="header-eyebrow">✦ 知識小馬 報馬仔 · ChatGPT Image 2.0</div>
+
+    <h1>提示詞<em>大全</em><br>50 組圖像生成指令</h1>
+
+    <p class="header-desc">五大類型、50組實用提示詞，搭配 ChatGPT 實際生成圖片範例。<br>點擊卡片查看完整指令，一鍵複製立即使用。</p>
+
+    <div class="stats-row">
+      <div class="stat-chip"><span class="dot"></span><strong>5</strong>&nbsp;大類別</div>
+      <div class="stat-chip"><span class="dot"></span><strong>50</strong>&nbsp;組提示詞</div>
+      <div class="stat-chip"><span class="dot"></span>圖片範例</div>
+      <div class="stat-chip"><span class="dot"></span>一鍵複製</div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════
+     STICKY CONTROLS
+═══════════════════════════════════════ -->
+<div class="controls">
+  <!-- mini mascot -->
+  <div class="ctrl-mascot">
+    <svg viewBox="0 0 160 190" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="80" cy="187" rx="44" ry="7" fill="#D4B020" opacity="0.2"/>
+      <path d="M116 132 C138 118 144 96 132 76 C125 64 116 61 109 67" fill="none" stroke="#D4942A" stroke-width="10" stroke-linecap="round"/>
+      <ellipse cx="80" cy="138" rx="46" ry="37" fill="#F7E89A" stroke="#E4D060" stroke-width="1.5"/>
+      <rect x="54" y="163" width="14" height="22" rx="6" fill="#F0D878"/>
+      <rect x="88" y="163" width="14" height="22" rx="6" fill="#F0D878"/>
+      <ellipse cx="61" cy="186" rx="9" ry="5" fill="#C08820"/>
+      <ellipse cx="95" cy="186" rx="9" ry="5" fill="#C08820"/>
+      <path d="M61 112 Q58 97 64 86 Q70 75 80 74 Q90 73 94 84 Q98 95 98 112 Z" fill="#F7E89A" stroke="#E4D060" stroke-width="1"/>
+      <path d="M68 118 L80 113 L68 108 Z" fill="#FF8080"/>
+      <path d="M92 108 L80 113 L92 118 Z" fill="#FF8080"/>
+      <circle cx="80" cy="113" r="3.8" fill="#FF5050"/>
+      <circle cx="80" cy="68" r="35" fill="#F7E89A" stroke="#E4D060" stroke-width="1.5"/>
+      <ellipse cx="57" cy="39" rx="9" ry="13.5" fill="#F7E89A" stroke="#E4D060" stroke-width="1.2" transform="rotate(-20 57 39)"/>
+      <ellipse cx="57" cy="39" rx="5.5" ry="8.5" fill="#FFB8C0" transform="rotate(-20 57 39)"/>
+      <ellipse cx="103" cy="39" rx="9" ry="13.5" fill="#F7E89A" stroke="#E4D060" stroke-width="1.2" transform="rotate(20 103 39)"/>
+      <ellipse cx="103" cy="39" rx="5.5" ry="8.5" fill="#FFB8C0" transform="rotate(20 103 39)"/>
+      <path d="M51 62 C40 53 36 42 43 32 C49 24 57 27 61 36 C57 27 62 19 70 23 C66 14 75 13 80 22 C76 13 85 12 89 22 C86 14 95 15 97 26" fill="#D4942A"/>
+      <ellipse cx="80" cy="85" rx="18" ry="13" fill="#F2D07A" stroke="#DEBC50" stroke-width="1"/>
+      <ellipse cx="73" cy="88" rx="3.8" ry="2.8" fill="#C08820" opacity="0.6"/>
+      <ellipse cx="87" cy="88" rx="3.8" ry="2.8" fill="#C08820" opacity="0.6"/>
+      <path d="M73 93 Q80 99 87 93" fill="none" stroke="#C08820" stroke-width="2.2" stroke-linecap="round"/>
+      <ellipse cx="66" cy="64" rx="10.5" ry="11.5" fill="white"/>
+      <ellipse cx="94" cy="64" rx="10.5" ry="11.5" fill="white"/>
+      <circle cx="66.5" cy="65" r="7.5" fill="#2D1800"/>
+      <circle cx="94.5" cy="65" r="7.5" fill="#2D1800"/>
+      <circle cx="66.5" cy="65" r="5.5" fill="#5C3410"/>
+      <circle cx="94.5" cy="65" r="5.5" fill="#5C3410"/>
+      <circle cx="69.5" cy="62" r="3" fill="white"/>
+      <circle cx="97.5" cy="62" r="3" fill="white"/>
+      <path d="M59 55 Q66.5 50 74 56" fill="none" stroke="#8B5810" stroke-width="2.4" stroke-linecap="round"/>
+      <path d="M86 56 Q93.5 50 101 55" fill="none" stroke="#8B5810" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="66" cy="64" r="14" fill="none" stroke="#9B7218" stroke-width="2"/>
+      <circle cx="94" cy="64" r="14" fill="none" stroke="#9B7218" stroke-width="2"/>
+      <line x1="79.5" y1="64" x2="80.5" y2="64" stroke="#9B7218" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="88" cy="26" rx="14" ry="5" fill="#8B5810"/>
+      <rect x="78" y="10" width="20" height="17" rx="3" fill="#A87020"/>
+      <rect x="82" y="22" width="12" height="7" rx="1.5" fill="#FFFDF0" stroke="#D4B030" stroke-width="0.8"/>
+      <text x="88" y="27.5" text-anchor="middle" font-size="4.5" fill="#8B5810" font-weight="bold" font-family="serif">PRESS</text>
+    </svg>
+    <span class="ctrl-label">知識小馬報馬仔</span>
+  </div>
+
+  <div class="search-wrap">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <input type="text" id="search" placeholder="搜尋主題、關鍵字…" autocomplete="off">
+  </div>
+
+  <div class="filter-tabs">
+    <button class="f-btn active" data-cat="all">🐴 全部</button>
+    <button class="f-btn" data-cat="1">📣 品牌社群</button>
+    <button class="f-btn" data-cat="2">💼 工作應用</button>
+    <button class="f-btn" data-cat="3">🌿 生活實用</button>
+    <button class="f-btn" data-cat="4">✨ 靈感點子</button>
+    <button class="f-btn" data-cat="5">📷 照片轉換</button>
+  </div>
+
+  <div class="count-badge" id="count-badge">50 筆</div>
+</div>
+
+<!-- ═══════════════════════════════════════
+     MAIN GRID
+═══════════════════════════════════════ -->
+<div class="grid-wrap" id="main-grid"></div>
+
+<!-- ═══════════════════════════════════════
+     MODAL
+═══════════════════════════════════════ -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <img class="modal-img" id="m-img" src="" alt="">
+    <div class="modal-body">
+      <div class="modal-top">
+        <span class="modal-cat-pill" id="m-pill"></span>
+        <span class="modal-num" id="m-num"></span>
+      </div>
+      <div class="modal-title" id="m-title"></div>
+      <div class="prompt-label">📋 提示詞範例</div>
+      <div class="prompt-box" id="m-prompt"></div>
+      <div class="modal-actions">
+        <button class="btn-copy-all" id="btn-copy">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <rect x="9" y="9" width="13" height="13" rx="2"/>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+          </svg>
+          複製完整提示詞
+        </button>
+        <button class="btn-close-modal" id="btn-close">關閉</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── DATA ─────────────────────────────────────────── */
+const DATA=[
+ /* 1 品牌社群 */
+ {c:1,cn:'品牌社群',n:'1-1',t:'社群貼文圖片',m:'05',i:'7kn7-1778561308',
+  p:'請幫我生成一張適合 Instagram 的社群圖片，主題為日常療癒生活，帶有奶油色調、文青風格與自然留白，畫面溫暖且適合搭配短文。'},
+ {c:1,cn:'品牌社群',n:'1-2',t:'YouTube 縮圖',m:'05',i:'ndb5-1778561306',
+  p:'請幫我設計一張資訊型 YouTube 縮圖，主題是 AI 提升工作效率，使用醒目的大字標題、強烈對比色與科技感背景，讓畫面在手機上也容易閱讀。'},
+ {c:1,cn:'品牌社群',n:'1-3',t:'商品形象照',m:'05',i:'rzn8-1778561307',
+  p:'請幫我把這個產品製作成高質感商品攝影風格，使用柔和自然光、乾淨背景與簡約構圖，畫面像保養品牌官網，帶有高級生活感與細膩陰影。'},
+ {c:1,cn:'品牌社群',n:'1-4',t:'EDM 行銷主圖 / Banner',m:'05',i:'5n6x-1778561693',
+  p:'請幫我設計一張 EDM 主視覺，主題是會員限定優惠，畫面乾淨吸睛，適合品牌電子報使用。'},
+ {c:1,cn:'品牌社群',n:'1-5',t:'品牌商品化形象',m:'05',i:'hprg-1778561307',
+  p:'請幫我把角色設計成品牌吉祥物商品，做成絨毛玩偶展示圖，風格溫暖可愛，像文創品牌商品頁會出現的形象照。'},
+ {c:1,cn:'品牌社群',n:'1-6',t:'活動海報設計',m:'05',i:'k8cw-1778561694',
+  p:'請幫我製作一張科技論壇活動海報，使用黑金色調與現代字體，畫面具有高級感與專業感。'},
+ {c:1,cn:'品牌社群',n:'1-7',t:'社群輪播圖',m:'05',i:'rmmj-1778561691',
+  p:'請幫我設計 Instagram 輪播封面圖，主題是「AI工具推薦」，使用現代感字體與簡潔版面。'},
+ {c:1,cn:'品牌社群',n:'1-8',t:'教學資訊圖',m:'05',i:'m55k-1778564625',
+  p:'請幫我把 AI 工具使用方法做成教學型資訊圖，搭配流程箭頭與簡單 icon，適合社群分享。'},
+ {c:1,cn:'品牌社群',n:'1-9',t:'品牌 Logo 概念圖',m:'05',i:'eprb-1778564624',
+  p:'請幫我生成三種不同風格的 Logo 概念圖，風格包含極簡、科技感與高級精品感。'},
+ {c:1,cn:'品牌社群',n:'1-10',t:'品牌社群模板',m:'05',i:'t3c7-1778564624',
+  p:'請幫我設計一套品牌社群模板，包含公告、活動、引用語錄與新品發布版型，風格統一且容易套用。'},
+
+ /* 2 工作應用 */
+ {c:2,cn:'工作應用',n:'2-1',t:'商業簡報封面',m:'05',i:'d5nb-1778567468',
+  p:'請幫我製作一張專業簡報封面，主題是新服務提案，使用簡潔排版、企業感配色與現代曲線設計，畫面像顧問公司或科技企業簡報。'},
+ {c:2,cn:'工作應用',n:'2-2',t:'公司介紹圖卡',m:'05',i:'f96r-1778567467',
+  p:'請幫我製作一張公司介紹視覺，內容包含品牌理念、服務項目與核心特色，版面簡潔有專業感。'},
+ {c:2,cn:'工作應用',n:'2-3',t:'產品比較表',m:'05',i:'hib6-1778567466',
+  p:'請幫我把不同方案做成視覺化比較表，使用簡潔欄位設計、圖示與重點標示，讓資訊更容易閱讀與理解。'},
+ {c:2,cn:'工作應用',n:'2-4',t:'Q&A 問答圖卡',m:'05',i:'cde6-1778567458',
+  p:'請幫我設計一張 FAQ 問答卡片，把常見問題與回答整理成視覺化版面，讓內容更容易閱讀，適合品牌客服或網站使用。'},
+ {c:2,cn:'工作應用',n:'2-5',t:'App Icon 設計',m:'05',i:'dcua-1778567457',
+  p:'請幫我設計一款現代感 App icon，以簡約幾何風格呈現，使用柔和綠色與白色配色，適合寵物養成類型 App，呈現多種功能，寫出設計概念，具有辨識度。'},
+ {c:2,cn:'工作應用',n:'2-6',t:'操作流程圖解',m:'05',i:'txda-1778567458',
+  p:'請幫我把「帳號註冊流程」做成步驟式圖解，使用 icon、箭頭與簡單文字說明，風格清楚、現代、容易閱讀。'},
+ {c:2,cn:'工作應用',n:'2-7',t:'數據資訊圖',m:'05',i:'7zvx-1778567912',
+  p:'請幫我把市場調查數據做成視覺化資訊圖，版面清楚、數據重點明確，適合簡報使用。'},
+ {c:2,cn:'工作應用',n:'2-8',t:'工作 Checklist 清單',m:'05',i:'je9i-1778567458',
+  p:'請幫我設計一張工作用 Checklist 圖卡，主題是活動籌備確認事項，使用乾淨排版與勾選框設計，看起來專業又實用。'},
+ {c:2,cn:'工作應用',n:'2-9',t:'部落格文章首圖',m:'05',i:'g7k5-1778567914',
+  p:'請幫我設計一張部落格文章首圖，主題圍繞生活風格與工作效率，版面乾淨、有閱讀感，搭配柔和配色與自然元素，風格像 Medium 或品牌內容網站首頁。'},
+ {c:2,cn:'工作應用',n:'2-10',t:'社群分享卡片',m:'05',i:'sby9-1778567915',
+  p:'請幫我製作一張適合 Instagram 分享的語錄卡片，風格簡約文青，搭配柔和背景與重點字體設計，適合創業或生活類內容。'},
+
+ /* 3 生活實用 */
+ {c:3,cn:'生活實用',n:'3-1',t:'菜單設計',m:'05',i:'3h1g-1778568429',
+  p:'請幫我製作一張文青風咖啡館菜單，版面包含飲品、甜點、價格與簡單插畫。使用奶油色背景、手寫字體、咖啡杯與植物元素，整體乾淨溫暖，像小型獨立咖啡店的紙本菜單。'},
+ {c:3,cn:'生活實用',n:'3-2',t:'季節月曆',m:'05',i:'d9v9-1778568676',
+  p:'請幫我生成一張春季主題月曆設計，畫面包含月份日期排版、櫻花枝、柔和天空與可愛小插圖。整體使用粉色、米白與淺綠色，版面清楚好讀，適合做成手機桌布、桌曆或社群圖片。'},
+ {c:3,cn:'生活實用',n:'3-3',t:'旅遊行程規劃表',m:'05',i:'cefz-1778819417',
+  p:'先完整規劃「釜山 4 天 3 夜自由行行程」，再將內容改寫成具畫面感的旅遊雜誌風格攻略文章，最後生成一張直式旅遊雜誌拼貼風海報。\n\n行程需考量人潮分布、交通順序、區域集中與旅行節奏；融合經典景點、海景療癒、韓系咖啡廳、美食、購物與夜景。先輸出完整日程規劃表，再改寫成具故事感的旅遊雜誌文章，最後生成適合 AI 製圖的旅遊海報提示詞。'},
+ {c:3,cn:'生活實用',n:'3-4',t:'編織小人氣象圖',m:'05',i:'i95r-1778819418',
+  p:'主題：＿＿＿＿＿編織小人氣象圖\n\n請先自行查詢「＿＿＿＿＿」當天最新天氣資訊（日期、天氣狀況、最高溫、最低溫、降雨機率），查詢後將天氣資訊放入中央氣象資訊牌中。\n\n中央是一個編織風格的氣象資訊牌，顯示城市名稱、日期、天氣狀況、溫度範圍與降雨機率。周圍是以毛線與鉤針材質打造的立體城市景觀，有可愛編織小人正在旅行、拍照、散步、搭車、逛街或品嚐美食。\n\n生成風格：crochet art style, amigurumi, knitted texture, yarn city, handcrafted miniature world, ultra detailed, 8K detail'},
+ {c:3,cn:'生活實用',n:'3-5',t:'讀書筆記風',m:'04',i:'ece9-1777011262',
+  p:'請將這張圖片或主題內容轉化為讀書筆記風。整體版面請像一本有質感的學習筆記頁，包含手寫感標題、重點底線、簡單框線、小箭頭、便利貼感區塊與清楚的段落分類。\n\n請讓內容看起來像真的有人閱讀後整理出的重點，而不是過度制式的簡報。文字排版請清楚、自然、有層次，適度保留留白。可以加入少量可愛小圖示、符號、標記或重點圈選，增加閱讀感與手作感。整體風格要有知識感、溫度感與收藏價值，像社群上會被存起來的讀書筆記頁。'},
+ {c:3,cn:'生活實用',n:'3-6',t:'時間管理規劃圖',m:'05',i:'wkxy-1778829477',
+  p:'請幫我把一天 24 小時做成時間分配圖，區分工作、學習、運動、娛樂與休息時間。使用時間軸與色塊設計，像 productivity app 的介面。'},
+ {c:3,cn:'生活實用',n:'3-7',t:'美食插圖',m:'05',i:'ijke-1778568823',
+  p:'請幫我畫一張草莓鬆餅插畫，使用溫暖餐廳風格與細膩食物質感，擺盤乾淨精緻，看起來像餐廳菜單上的主視覺。'},
+ {c:3,cn:'生活實用',n:'3-8',t:'日系白邊手繪風',m:'04',i:'b53y-1776940840',
+  p:'請觀察照片中出現的元素，並為每個元素加入有意義的手繪註解。\n\n【描寫規則】\n・使用像白色筆畫出的細手繪線條\n・線條要有一筆畫風格，隨性、略帶不均勻感\n・沿著物件外輪廓加上描邊\n・用箭頭或虛線引導視線\n\n【文字規則】\n・使用日文手寫字風格（平假名約 7 成，簡單漢字約 3 成）\n・文字要短，像自言自語一樣的註解\n・語氣偏向「日記感、短句、情緒感」\n\n【成品風格】\n・像 Instagram 限時動態風格，也像雜誌上的隨手筆記風\n・整體要有時髦感，同時帶點輕鬆不費力的氛圍'},
+ {c:3,cn:'生活實用',n:'3-9',t:'一週習慣追蹤表',m:'05',i:'w25j-1778829263',
+  p:'請幫我設計一張一週 habit tracker，包含運動、閱讀、喝水、冥想、早睡與學習等欄位。版面簡潔療癒，搭配小圖示與打勾區域，像文具品牌會推出的生活規劃模板。'},
+ {c:3,cn:'生活實用',n:'3-10',t:'電影觀後感筆記',m:'05',i:'8waj-1778829687',
+  p:'請幫我製作一張電影觀後感卡片，內容包含電影評分、角色分析、經典台詞與心得。畫面帶有電影感與文青風格，像影評帳號分享圖卡。'},
+
+ /* 4 靈感點子 */
+ {c:4,cn:'靈感點子',n:'4-1',t:'四格漫畫',m:'05',i:'gaq4-1778568424',
+  p:'請幫我把「每天開會的崩潰日常」做成四格漫畫，用幽默方式呈現上班族心聲，角色可愛、節奏輕鬆、有日系漫畫感。'},
+ {c:4,cn:'靈感點子',n:'4-2',t:'LINE 貼圖角色',m:'05',i:'1z5x-1778568672',
+  p:'請幫我設計一組 Q 版角色貼圖，角色表情誇張可愛，包含開心、無奈、生氣與驚訝四種情緒，風格簡單乾淨，適合聊天使用。'},
+ {c:4,cn:'靈感點子',n:'4-3',t:'旅行日記插畫',m:'05',i:'1mrv-1778568428',
+  p:'請幫我生成一頁旅行日記風格插畫，包含地圖、車票、手寫字與沿途風景，像旅人隨身筆記本。'},
+ {c:4,cn:'靈感點子',n:'4-4',t:'黑膠唱片封面',m:'05',i:'ae29-1778568426',
+  p:'請幫我設計一張獨立樂團風格黑膠唱片封面，畫面帶有情緒感、低飽和色調與文藝攝影氛圍，像 indie music 專輯。'},
+ {c:4,cn:'靈感點子',n:'4-5',t:'漫畫封面設計',m:'05',i:'mptf-1778568676',
+  p:'請幫我製作一張冒險漫畫封面，主角站在壯闊山脈與天空前方，畫面中有標題區、集數編號與強烈動態構圖。風格熱血、有故事張力，像少年冒險漫畫第一集封面。'},
+ {c:4,cn:'靈感點子',n:'4-6',t:'世界觀書封設計',m:'05',i:'xyig-1778569138',
+  p:'請幫我生成一本奇幻小說書封，畫面有巨大古城、夜空與神秘角色，整體像奇幻文學封面設計。'},
+ {c:4,cn:'靈感點子',n:'4-7',t:'復古雜誌封面',m:'05',i:'u18w-1778569053',
+  p:'請幫我設計一張 90 年代日本生活風格雜誌封面，整體像日本 old school lifestyle magazine。使用大面積雜誌標題、復古排版、多欄文字設計與大量日文標題，畫面帶有懷舊感與生活氣息。'},
+ {c:4,cn:'靈感點子',n:'4-8',t:'時尚雜誌封面',m:'05',i:'xt9f-1778827365',
+  p:'日系時尚雜誌封面風格，一位有氣質的模特站在東京街頭，穿著簡約高級感穿搭，日系都會時尚風格，乾淨俐落髮型，自然神情，帶有 Men\'s Non-no、POPEYE、UOMO、FINEBOYS 類型的日系雜誌氛圍。\n\n柔和自然光，低飽和色調，生活感街拍攝影，現代東京都市背景，真實雜誌封面排版，包含日文標題、封面文案與條碼，整體風格清新、時髦、成熟、有質感，超寫實攝影，高解析度。'},
+ {c:4,cn:'靈感點子',n:'4-9',t:'寵物走出 IG 拍照框',m:'05',i:'f61x-1778824798',
+  p:'超可愛【寵物】從巨大 Instagram 拍照框中走出來，前腳超近距離伸向鏡頭，帶有強烈透視感與廣角效果，露出開心微笑與吐舌表情。\n\n背景是陽光燦爛的夢幻花園小徑，四周盛開大量粉色、橘色、黃色花朵，空中飛舞著蝴蝶，藍天白雲清晰明亮。\n\n畫面中央有大型白色 Instagram UI 相框，上面顯示帳號名稱、愛心、留言、收藏圖示與高按讚數。整體風格像高質感社群媒體廣告，色彩鮮豔，高彩度，超寫實毛髮細節，電影感光影，淺景深，夢幻春日氛圍，超精緻 3D 感，8k。'},
+ {c:4,cn:'靈感點子',n:'4-10',t:'黏土 Q 版角色',m:'05',i:'imst-1778825281',
+  p:'Q版角色公仔從巨大手機螢幕中走出來，形成「踏出手機畫面」的立體效果，角色穿著符合主題風格的服裝，露出活潑可愛笑容，動作像正在向前奔跑或走向鏡頭。\n\n背景是與角色主題相關的迷你場景與日系街景，整體像超精緻黏土模型與收藏級公仔展示台。畫面周圍漂浮大量可愛立體小物件，包括主題相關道具、愛心通知、like 圖示、對話框、旗幟、小圖標、社群媒體 icon。\n\n整體風格：日系 kawaii toy aesthetic、3D clay art、miniature diorama、collectible figurine style、超高細節、暖色陽光、柔和景深、療癒系色彩、高彩度、8k。'},
+
+ /* 5 照片轉換 */
+ {c:5,cn:'照片轉換',n:'5-1',t:'衝破手機螢幕',m:'05',i:'4pjd-1777873964',
+  p:'創建一個高度擬真、具電影感的場景：我正從自己的社群貼文中走進現實世界。\n\n將我置於一支智慧型手機螢幕中，畫面顯示一個照片分享型社群貼文介面，並讓我從螢幕中突破出來。人物姿勢需重新設計為動態行走中，一腳向前跨出，並使用強烈 3D 透視前縮效果（foreshortening），讓腳朝向觀者延伸，呈現強烈臨場感與空間深度。\n\n社群介面需為原創設計（不可模仿任何品牌），包含：上方標題列（含限時動態圓圈與通知圖示）、個人頭像與使用者名稱【填入自己的社群帳號】、中央圓角貼文圖片區塊、下方互動圖示（按讚、留言、分享、收藏）。\n\n在人物突破螢幕的接觸點加入特效：玻璃破裂碎片（具光線折射）、向外噴散的數位像素碎片、前景手腳帶有動態模糊拖影，以及螢幕邊界帶有微微發光的數位殘影效果。\n\n構圖為 4:5 直式，畫面完整不裁切，具強烈前後景深。'},
+ {c:5,cn:'照片轉換',n:'5-2',t:'個人形象潑墨插圖',m:'05',i:'ptzh-1777872072',
+  p:'以這張照片為基礎，將人物轉換為日系手繪插畫風，保留原本的臉部五官、髮型、表情與姿勢。\n\n半身構圖，人物動態自然，情緒表現自然柔和，角色特徵清晰且接近真人。\n\n整體風格為手繪塗鴉＋水彩速寫，使用隨性線條與鬆散墨線，帶有漫畫草稿質感與手繪筆觸。色彩以粉彩與淡墨色混合，加入水彩暈染與輕微潑墨效果，整體色調柔和。\n\n背景為白色簡約風，加入符號化塗鴉元素點綴，如小愛心、星星、簡單圖形與筆刷痕跡，營造手帳與插畫氛圍。'},
+ {c:5,cn:'照片轉換',n:'5-3',t:'角色設定海報',m:'05',i:'iten-1777875994',
+  p:'請根據我提供的照片，將人物轉換為日系寫實插畫風角色設定海報。保留人物原本的臉部特徵、髮型與整體氣質，轉為細緻的數位手繪插畫風格，線條乾淨但帶有手繪筆觸，質感介於寫實與插畫之間。\n\n整體版面設計為角色設定卡（character profile poster），畫面以人物半身或胸像為主視覺，搭配多個小場景插畫，版面需包含結構化資訊區塊（角色定位、性格特質、核心價值、能力優勢、生活風格等）。\n\n整體風格：日系寫實插畫＋角色設定卡＋資訊設計排版，色調統一，高細節、高品質。'},
+ {c:5,cn:'照片轉換',n:'5-4',t:'穿搭建議分析',m:'05',i:'v9s6-1777877777',
+  p:'請根據我提供的人物照片，生成一張個人穿搭風格解析海報。\n\n分析必須明確根據此人物的臉型、膚色、身形比例與整體氣質進行，不可使用通用模板或固定風格分類。整體風格需呈現此人物的獨特性，風格命名需具個人特色，避免使用常見分類（如韓系、日系等泛用標籤）。\n\n每一項穿搭建議需說明與人物特徵的關聯。穿搭內容需拆解為：上半身、下半身、整體比例、配色與配件，並提供具體且有差異的建議。'},
+ {c:5,cn:'照片轉換',n:'5-5',t:'復古電子寵物像素風',m:'05',i:'d5jm-1777983646',
+  p:'請把原始圖片轉化為具有 90 年代虛擬寵物機風格的畫面，呈現像早期電子寵物液晶顯示器中的內容。\n\n在保留人物位置與場景互動關係的情況下，將整體視覺簡化為 8-bit 像素形式，角色與背景風格偏向柔軟、輕鬆，帶點慵懶與療癒感，表情可愛中帶一點呆萌氣息。\n\n畫面採用類似早期 LCD 的顯示質感，使用有限色彩（最多 4 色），以柔和的粉彩配色為主（奶油白、淡粉紅、薄荷綠與淡紫色）。\n\n加入復古數位介面元素：電量指示、狀態欄、小圖示（愛心、選單符號）、等級或數值資訊、日期與時間顯示。整體畫面填滿整個畫面範圍，不出現裝置外觀元素。'},
+ {c:5,cn:'照片轉換',n:'5-6',t:'Q 版 3D 小人風',m:'05',i:'4fbq-1777985929',
+  p:'基於這張圖片，以照片中的人物為中心，請生成一張「迷你角色在周圍生動活動的感性合成圖片」。\n\n核心概念：日常中的小分身，可愛又帶點玩心，同時具有感性的呈現；Instagram 風格＋具有故事感的圖片。\n\n生成多個以人物為基礎的「迷你角色」（風格：3D 可愛 SD 角色），數量約 3～7 個，每個角色都必須在動作中（跳躍、揮手、模仿人物、坐在物品上、爬到肩膀上）。禁止靜止角色。\n\n分析圖片氛圍，自動生成簡短且感性的韓文標題（2～5 個單詞）。\n\n加入手寫感塗鴉（箭頭、圓圈標註、星星、愛心、虛線），以及小型貼紙文字（mini me、today、mood）。'},
+ {c:5,cn:'照片轉換',n:'5-7',t:'電影海報風',m:'04',i:'93y5-1777010863',
+  p:'請將這張圖片轉化為電影海報風格。讓畫面具有強烈敘事感、情緒張力與主視覺焦點，看起來像一部電影的正式海報。\n\n請強化光影對比、角色或物件的存在感，以及整體構圖的戲劇性。\n\n可以加入片名、大字標題、副標語、上映宣傳語或演員名單風格的小字排版。整體風格請有電影感、故事感與視覺衝擊力，像文藝片、愛情片、懸疑片或青春片海報。請依照原圖氛圍決定是溫柔、浪漫、神秘或帶點史詩感。'},
+ {c:5,cn:'照片轉換',n:'5-8',t:'大尺寸與迷你版人物',m:'05',i:'knss-1778821089',
+  p:'請使用我提供的照片作為角色參考。保留照片中人物原本的：臉型、五官、髮型、膚色、穿搭、身材比例、整體氣質。不要重新設計角色，也不要改變人物風格。大尺寸人物與迷你人物必須是同一個人，迷你角色是縮小版的自己。\n\n畫面是一個溫暖療癒的微縮夢境場景。\n\n【大型人物】以正常比例出現在溫暖的室內空間裡，露出溫柔自然的表情，正在照顧或觀察縮小版的自己。\n【迷你人物】縮小版的自己出現在大型人物身旁，尺寸約為正常人物的 1/6 至 1/8，保留相同的臉部特徵、髮型與服裝。\n\n整體氛圍安靜、療癒、夢幻、具有故事感。風格：cinematic photography, miniature world, cozy room, warm ambient lighting, 8K。'},
+ {c:5,cn:'照片轉換',n:'5-9',t:'日本極道千金 / 少爺風',m:'05',i:'gcvu-1778828222',
+  p:'根據我提供的照片，請保留照片中人物原本的五官特徵、臉型輪廓、神情與辨識度，貼近原圖人物外貌。\n\n生成日本黑道電影風格，一位年輕的日本極道千金站在打開的黑色高級轎車車門前，保鑣替她拉開車門並撐著黑傘，黑色豪華轎車停靠在雨後潮濕的東京歌舞伎町街頭，車燈照亮積水地面與霓虹倒影。\n\n她穿著高級黑色和服，帶有金色刺繡、傳統花紋與低調奢華感，若隱若現的日式刺青，冷酷自信的眼神，慵懶且高傲的姿態。\n\n日本犯罪電影美學，電影級打光，強烈光影對比，黑金色調，低飽和電影色調，Netflix 日劇電影海報風格，如龍系列氛圍，cinematic composition，shallow depth of field。'},
+ {c:5,cn:'照片轉換',n:'5-10',t:'Y2K 四格大頭貼',m:'05',i:'iadi-1778823486',
+  p:'根據我提供的圖片，製作一張 2x2 四分格魚眼鏡頭拼貼大頭貼，畫面是在有鏡子的電梯裡自拍。整體構圖像早期日系拍貼機與 Y2K 網路自拍相簿風格，每格都是超近距離大頭貼視角。\n\n左上：人物超近距離貼近魚眼鏡頭，戴著 oversized 半透明藍色墨鏡，露出俏皮驚訝表情。\n右上：人物雙手托著臉頰對鏡頭燦笑，嘴巴微張。\n左下：超近距離靠近魚眼鏡頭，輕輕閉上一隻眼睛，露出撒嬌感可愛表情。\n右下：人物歪頭對鏡頭比 YA 或愛心手勢，露出甜酷微笑。\n\n周圍漂浮大量迷你貼紙：愛心、草莓、天使翅膀、泰迪熊、星星、小花、蝴蝶。\n\n整體氛圍：藍色環境光、夢幻 CCD 柔焦感、復古底片顆粒、Y2K 千禧辣妹自拍美學、日系拍貼機風格。'},
+];
+
+const CATS=[
+ {id:1,icon:'📣',name:'品牌社群類',desc:'社群行銷・品牌視覺・廣告素材'},
+ {id:2,icon:'💼',name:'工作應用類',desc:'簡報・圖卡・資訊圖・職場工具'},
+ {id:3,icon:'🌿',name:'生活實用類',desc:'菜單・月曆・旅遊・日記・習慣'},
+ {id:4,icon:'✨',name:'靈感點子類',desc:'漫畫・插畫・雜誌封面・貼圖'},
+ {id:5,icon:'📷',name:'照片風格轉換類',desc:'上傳照片，變換各種創意風格'},
+];
+
+const CAT_COLORS={
+ 1:{fg:'var(--c1)',bg:'var(--c1bg)',bd:'var(--c1bd)'},
+ 2:{fg:'var(--c2)',bg:'var(--c2bg)',bd:'var(--c2bd)'},
+ 3:{fg:'var(--c3)',bg:'var(--c3bg)',bd:'var(--c3bd)'},
+ 4:{fg:'var(--c4)',bg:'var(--c4bg)',bd:'var(--c4bd)'},
+ 5:{fg:'var(--c5)',bg:'var(--c5bg)',bd:'var(--c5bd)'},
+};
+
+function imgUrl(m,i){return`https://image-cdn.learnin.tw/bnextmedia/image/album/2026-${m}/${i}.png?w=600&output=webp`;}
+
+/* ── RENDER ─── */
+const mainGrid=document.getElementById('main-grid');
+const countBadge=document.getElementById('count-badge');
+let activeCat='all', q='';
+
+function render(){
+  mainGrid.innerHTML='';
+  let total=0;
+  CATS.forEach(cat=>{
+    const items=DATA.filter(d=>{
+      if(activeCat!=='all'&&d.c!=activeCat)return false;
+      if(!q)return d.c===cat.id;
+      const hay=d.t+d.cn+d.p;
+      return d.c===cat.id&&hay.toLowerCase().includes(q);
+    });
+    if(!items.length)return;
+    total+=items.length;
+    const sec=document.createElement('div');
+    sec.className=`cat-section cat-section-${cat.id}`;
+    sec.innerHTML=`
+      <div class="cat-header">
+        <div class="cat-icon">${cat.icon}</div>
+        <div class="cat-hd-text">
+          <div class="cat-hd-name">${cat.name}</div>
+          <div class="cat-hd-desc">${cat.desc}</div>
+        </div>
+        <div class="cat-hd-count">${items.length} 組</div>
+      </div>
+      <div class="cards-grid"></div>
+    `;
+    const cg=sec.querySelector('.cards-grid');
+    items.forEach((d,idx)=>{
+      const card=document.createElement('div');
+      card.className=`card cat-c${d.c}`;
+      card.style.animationDelay=`${idx*0.045}s`;
+      card.innerHTML=`
+        <div class="card-img">
+          <img src="${imgUrl(d.m,d.i)}" alt="${d.t}" loading="lazy">
+          <div class="cat-badge">${d.cn}</div>
+          <div class="expand-hint">展開查看 ↗</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">${d.t}</div>
+          <div class="card-prompt-preview">${d.p}</div>
+          <div class="card-footer">
+            <button class="copy-btn" title="複製提示詞">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              複製
+            </button>
+            <div class="card-num"># ${d.n}</div>
+          </div>
+        </div>
+      `;
+      /* copy short */
+      card.querySelector('.copy-btn').addEventListener('click',e=>{
+        e.stopPropagation();
+        const btn=e.currentTarget;
+        navigator.clipboard.writeText(d.p).then(()=>{
+          btn.classList.add('done');
+          btn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 已複製！';
+          setTimeout(()=>{
+            btn.classList.remove('done');
+            btn.innerHTML='<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 複製';
+          },2000);
+        });
+      });
+      /* open modal */
+      card.addEventListener('click',()=>openModal(d));
+      cg.appendChild(card);
+    });
+    mainGrid.appendChild(sec);
+  });
+
+  if(total===0){
+    mainGrid.innerHTML=`<div class="no-results"><div class="no-results-icon">🐴</div><h3 style="font-family:'Noto Serif TC',serif;font-size:18px;color:var(--text-2);margin-bottom:8px">知識小馬找不到這個！</h3><p style="color:var(--text-3);font-size:13px">試試其他關鍵字，或切換類別</p></div>`;
+  }
+  countBadge.textContent=total+' 筆';
+}
+
+/* ── MODAL ─── */
+const overlay=document.getElementById('overlay');
+function openModal(d){
+  document.getElementById('m-img').src=imgUrl(d.m,d.i);
+  document.getElementById('m-img').alt=d.t;
+  const pill=document.getElementById('m-pill');
+  pill.textContent=d.cn;
+  pill.style.color=`var(--c${d.c})`;
+  pill.style.borderColor=`var(--c${d.c}bd)`;
+  pill.style.background=`var(--c${d.c}bg)`;
+  document.getElementById('m-num').textContent=`# ${d.n}`;
+  document.getElementById('m-title').textContent=d.t;
+  document.getElementById('m-prompt').textContent=d.p;
+  const cp=document.getElementById('btn-copy');
+  cp.onclick=()=>{
+    navigator.clipboard.writeText(d.p).then(()=>{
+      cp.classList.add('done');
+      cp.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg> 已複製！';
+      setTimeout(()=>{
+        cp.classList.remove('done');
+        cp.innerHTML='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg> 複製完整提示詞';
+      },2000);
+    });
+  };
+  overlay.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('btn-close').onclick=closeModal;
+overlay.addEventListener('click',e=>{if(e.target===overlay)closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ── FILTERS ─── */
+document.querySelectorAll('.f-btn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    document.querySelectorAll('.f-btn').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    activeCat=b.dataset.cat;
+    render();
+  });
+});
+
+/* ── SEARCH ─── */
+let t;
+document.getElementById('search').addEventListener('input',e=>{
+  clearTimeout(t);
+  t=setTimeout(()=>{q=e.target.value.toLowerCase().trim();render();},200);
+});
+
+render();
+</script>
+</body>
+</html>
